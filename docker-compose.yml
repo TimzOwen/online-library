@@ -1,0 +1,27 @@
+services:
+  postgres:
+    image: postgres:14-alpine
+    container_name: postgres-online-library
+    environment:
+      POSTGRES_DB: book_social_network
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Post@Gres00.
+    ports:
+      - "5432:5432"
+    networks:
+      - spring-network
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  mail-dev:
+    container_name: mail-dev-bsn
+    image: maildev/maildev
+    ports:
+      - "1080:1080"
+      - "1025:1025"
+volumes:
+  postgres_data:
+networks:
+  spring-network:
+    driver: bridge
